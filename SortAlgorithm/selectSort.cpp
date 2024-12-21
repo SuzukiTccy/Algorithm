@@ -23,5 +23,11 @@ void selectSort(vector<int>& nums){
 
 
 int main(){
+	vector<int> nums = {5, 2, 3, 1, 4, 6, 8, 7, 9, 15, 65, 23, 12, 34, 56, 78, 90, 11, 22, 33};
+	selectSort(nums);
+	for(auto i : nums){
+		cout<<i<<" ";
+	}
+	cout<<endl;
     return 0;
 }

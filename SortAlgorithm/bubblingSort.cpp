@@ -10,9 +10,7 @@ void bubblingsort(vector<int> &nums){
 		exchange = false;
 		for(int j = 0; j < nums.size() - 1 - i; ++j){
 			if(nums[j] > nums[j+1]){
-				temp = nums[j+1];
-				nums[j+1] = nums[j];
-				nums[j] = temp;
+				swap(nums[j], nums[j+1]);
 				exchange = true;
 			}
 		}
@@ -21,5 +19,11 @@ void bubblingsort(vector<int> &nums){
 
 
 int main(){
+	vector<int> nums = {5, 2, 3, 1, 4, 6, 8, 7, 9, 15, 65, 23, 12, 34, 56, 78, 90, 11, 22, 33};
+	bubblingsort(nums);
+	for(auto num : nums){
+		cout << num << " ";
+	}
+	cout << endl;
     return 0;
 }
