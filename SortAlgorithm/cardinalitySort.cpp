@@ -1,74 +1,81 @@
+#include<iostream>
 #include<algorithm>
 #include<vector>
 using namespace std;
 
 class Solution {
 public:
-    int digit(int num, int exp) {
-        return (abs(num) / exp) % 10;
+    int digit(int n, int exp){
+        return (n / exp) % 10;
     }
 
-    void countingSortDigit(vector<int>& nums, int exp) {
-        // 十进制的位范围为 0~9 ，因此需要长度为 10 的桶
-        vector<int> counter(10, 0);
-        int n = nums.size();
-
-        // 统计 0~9 各数字的出现次数
-        for(int i = 0; i < n; ++i) {
-            int d = digit(nums[i], exp);
+    void SingleCountingDigit(vector<int>& nums, int exp){
+        int counter[10] = {};
+        int d = 0;
+        for(auto &num : nums){
+            d = digit(num, exp);
             ++counter[d];
         }
 
-        // 求前缀和，将“出现个数”转换为“数组索引”
-        for (int i = 1; i < 10; i++) {
-            counter[i] += counter[i - 1];
+        for(int i = 0; i < 9; ++i){
+            counter[i+1] += counter[i];
         }
 
-        // 倒序遍历，根据桶内统计结果，将各元素填入 res
-        vector<int> res(n, 0);
-        for (int i = n - 1; i >= 0; i--) {
-            int d = digit(nums[i], exp);
-            int j = counter[d] - 1;
-            res[j] = nums[i];
-            counter[d]--;
+        vector<int> res(nums.size(), 0);
+        for(int i = nums.size() - 1; i >= 0; --i){
+            d = digit(nums[i], exp);
+            res[--counter[d]] = nums[i];
         }
-        
-        // 使用结果覆盖原数组 nums
-        for (int i = 0; i < n; i++) {
+
+        for(int i = 0; i < nums.size(); ++i){
             nums[i] = res[i];
         }
     }
 
-    vector<int> sortArray(vector<int>& nums) {
-        vector<int> positives;
-        vector<int> negatives;
+    void CountingDigit(vector<int>& nums){
+        vector<int> positives = {};
+        vector<int> negatives = {};
 
-        for(int num : nums) {
-            if(num >= 0) positives.push_back(num);
-            else negatives.push_back(-num); // Store negative numbers as positive values for sorting
+        for(auto& num : nums){
+            if(num >= 0) positives.emplace_back(num);
+            else negatives.emplace_back(-num);
         }
 
         int maxPositive = positives.empty() ? 0 : *max_element(positives.begin(), positives.end());
         int maxNegative = negatives.empty() ? 0 : *max_element(negatives.begin(), negatives.end());
 
-        for(int exp = 1; maxPositive / exp > 0; exp *= 10) {
-            countingSortDigit(positives, exp);
+        int exp = 1;
+        for(int i = maxPositive; i > 0; i /= 10){
+            SingleCountingDigit(positives, exp);
+            exp *= 10;
         }
 
-        for(int exp = 1; maxNegative / exp > 0; exp *= 10) {
-            countingSortDigit(negatives, exp);
+        exp = 1;
+        for(int i = maxNegative; i > 0; i /= 10){
+            SingleCountingDigit(negatives, exp);
+            exp *= 10;
         }
 
         reverse(negatives.begin(), negatives.end());
 
-        for(int &num : negatives) {
-            num = -num;
+        for(int i = 0; i < negatives.size(); ++i){
+            nums[i] = -negatives[i];
         }
 
-        vector<int> result;
-        result.insert(result.end(), negatives.begin(), negatives.end());
-        result.insert(result.end(), positives.begin(), positives.end());
-
-        return result;
+        for(int i = 0; i < positives.size(); ++i){
+            nums[negatives.size()+i] = positives[i];
+        }
     }
 };
+
+
+int main(){
+    Solution s;
+    vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10 ,-500, -231, 231, 500};
+    s.CountingDigit(nums);
+    for(auto& num : nums){
+        cout << num << " ";
+    }
+    cout << endl;
+    return 0;
+}
