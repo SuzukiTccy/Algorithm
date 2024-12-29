@@ -1,38 +1,50 @@
+#include<iostream>
 #include<algorithm>
 #include<vector>
 using namespace std;
 
 class Solution {
 public:
-    void maxHeapify(vector<int>& a, int i, int heapSize) {
-        int l = i * 2 + 1, r = i * 2 + 2, largest = i;
-        if (l < heapSize && a[l] > a[largest]) {
+    void maxHeapify(vector<int>& nums, int i, int heapsize){
+        int l = 2*i + 1;
+        int r = 2*i + 2;
+        int largest = i;
+        if (l < heapsize && nums[l] > nums[largest]){
             largest = l;
-        } 
-        if (r < heapSize && a[r] > a[largest]) {
+        }
+        if (r < heapsize && nums[r] > nums[largest]){
             largest = r;
         }
-        if (largest != i) {
-            swap(a[i], a[largest]);
-            maxHeapify(a, largest, heapSize);
+
+        if (largest != i){
+            swap(nums[i], nums[largest]);
+            maxHeapify(nums, largest, heapsize);
         }
     }
 
-    void buildMaxHeap(vector<int>& a, int heapSize) {
-        for (int i = heapSize / 2; i >= 0; --i) {
-            maxHeapify(a, i, heapSize);
-        } 
+    void buildmaxHeap(vector<int>& nums, int heapsize){
+        for(int i = heapsize / 2; i >= 0; --i){
+            maxHeapify(nums, i, heapsize);
+        }
     }
 
-
-    vector<int> sortArray(vector<int>& nums) {
-        int heapSize = nums.size();
-        buildMaxHeap(nums, heapSize);
-        for (int i = nums.size() - 1; i >= 1; --i) {
-            swap(nums[0], nums[i]);
-            --heapSize;
-            maxHeapify(nums, 0, heapSize);
+    void heapSort(vector<int>& nums){
+        int heapsize = nums.size();
+        buildmaxHeap(nums, heapsize);
+        for(int i = 0; i < nums.size() - 1; ++i){
+            swap(nums[0], nums[heapsize-1]);
+            --heapsize;
+            maxHeapify(nums, 0, heapsize);
         }
-        return nums;
     }
 };
+
+int main(){
+    vector<int> nums = {5, 2, 3, 1, 4, 6, 8, 7, 9, 15, 65, 23, 12, 34, 56, 78, 90, 11, 22, 33, 33};
+    Solution s;
+    s.heapSort(nums);
+    for(auto& num : nums){
+        cout << num << " ";
+    }
+    return 0;
+}
