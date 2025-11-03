@@ -1,64 +1,73 @@
 #include<iostream>
-#include<random>
+#include<vector>
 #include<algorithm>
 #include<ctime>
-#include<vector>
-
+#include<random>
 using namespace std;
 
-class Solution {
+//快速排序
+class QuickSort{
+/*
+    * 快速排序
+    * 时间复杂度：O(nlogn)
+    * 空间复杂度：O(logn)
+    * 稳定性：不稳定
+    * 算法思想：选择一个基准元素，将数组分为两部分，一部分小于基准元素，一部分大于基准元素，然后递归地对这两部分进行快速排序
+    * 默认升序
+*/
+
 public:
-    bool allElementsAreSame(const vector<int>& nums) {
-        for (int i = 1; i < nums.size(); ++i) {
-            if (nums[i] != nums[0]) return false;
+    static bool allElementsAreEqual(const vector<int>& nums){
+        for(auto num : nums){
+            if(num != nums[0]) return false;
         }
         return true;
     }
 
-
-    void quickSort(vector<int>& nums, int l, int r){
-        if (l >= r) return;
-        int pivot = partition(nums, l, r);
-        quickSort(nums, l, pivot-1);
-        quickSort(nums, pivot+1, r);
-    }
-
-    int partition(vector<int>& nums, int l, int r){
-        int pivot = rand() % (r-l+1) + l;
+    static int partition(vector<int>& nums, int l, int r){
+        int pivot = rand() % (r - l + 1) + l;
         swap(nums[pivot], nums[r]);
         int i = l, j = l;
         while(j < r){
-            if(nums[j] <= nums[r]){
+            if(nums[j] < nums[r]){
                 swap(nums[i], nums[j]);
                 ++i;
             }
             ++j;
-        }
+        } 
         swap(nums[i], nums[r]);
         return i;
     }
 
-    vector<int> sortArray(vector<int>& nums) {
-        if(allElementsAreSame(nums)) return nums;
-        srand((unsigned)time(NULL));
-        quickSort(nums, 0, nums.size()-1);
-        return nums;
+    static void quickSort(vector<int>& nums, int l, int r){
+        if(l >= r) return;
+        int pivot = partition(nums, l, r);
+        quickSort(nums, l, pivot - 1);
+        quickSort(nums, pivot + 1, r);
+    }
+
+    static void sort(vector<int>& nums, bool descending = false){
+        if(allElementsAreEqual(nums)) return;
+        quickSort(nums, 0, nums.size() - 1);
+
+        if(descending) reverse(nums.begin(), nums.end());
     }
 };
 
-int main(){
-    vector<int> nums = {5, 2, 3, 1, 4, 6, 8, 7, 9, 15, 65, 23, 12, 34, 56, 78, 90, 11, 22, 33};
-    Solution s;
-    s.quickSort(nums, 0, nums.size()-1);
-    for(auto i:nums){
-        cout << i << " ";
-    }
-    cout << endl;
-    return 0;
+
+void quickSort_main(){
+    vector<int> nums1 = {3, 2, 1, 5, 4, 6, 11, 0, 4, 3};
+    QuickSort().sort(nums1);
+    cout << "排序后的数组（升序）:" << endl;
+	for(auto i : nums1) cout << i << " ";
+	cout << endl;
+
+    vector<int> nums2 = {3, 2, 1, 5, 4, 6, 11, 0, 4, 3};
+    QuickSort().sort(nums2, true);
+    cout << "排序后的数组（降序）:" << endl;
+	for(auto i : nums2) cout << i << " ";
+	cout << endl;
 }
-
-
-
 
 
 
