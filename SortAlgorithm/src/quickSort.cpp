@@ -48,6 +48,7 @@ public:
 
     static void sort(vector<int>& nums, bool descending = false){
         if(allElementsAreEqual(nums)) return;
+        srand(time(0));
         quickSort(nums, 0, nums.size() - 1);
 
         if(descending) reverse(nums.begin(), nums.end());
