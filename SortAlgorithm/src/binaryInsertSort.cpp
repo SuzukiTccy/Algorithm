@@ -4,6 +4,15 @@ using namespace std;
 
 class BinaryInsertSort{
 public:
+    /*
+        * 二分插入排序
+        * 时间复杂度：O(n^2)
+        * 空间复杂度：O(1)
+        * 稳定性：稳定
+        * 算法思想：用二分查找在以排序的[0, j]区间内查找插入位置，然后插入
+        * 默认升序
+    */
+
     static int binarySearch(const vector<int>& nums, int l, int r, const int& target){
         int mid = 0;
         while(l + 1 < r){
