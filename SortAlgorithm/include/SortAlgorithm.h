@@ -4,3 +4,4 @@ void insertSort_main();
 void binaryInsertSort_main();
 void shellSort_main();
 void quickSort_main();
+void mergeSort_main();
