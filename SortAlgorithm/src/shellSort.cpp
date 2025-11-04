@@ -15,17 +15,17 @@ public:
 
     static void shellsort(vector<int>& nums, bool des = false){
         int len = nums.size();
+        int temp = 0;
+        int j = 0;
         // 第一阶段：分间隔delta
         for(int delta = len / 2; delta > 0; delta /= 2){
             // 第二阶段：分间隔
             for(int start = 0; start < delta; ++start){
                 // 第三阶段：插入排序
-                int temp = 0;
-                int j = 0;
                 for(int i = start + delta; i < len; i += delta){
                     temp = nums[i];
                     j = i - delta;
-                    while(j >= 0 && nums[j] > temp){
+                    while(j >= start && nums[j] > temp){
                         nums[j+delta] = nums[j];
                         j -= delta;
                     }
