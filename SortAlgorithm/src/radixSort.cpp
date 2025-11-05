@@ -25,7 +25,6 @@ public:
             counter[i+1] += counter[i];
         }
 
-        res.resize(nums.size());
         for(int i = nums.size() - 1; i >= 0; --i){
             d = digit(nums[i], exp);
             res[--counter[d]] = nums[i];
@@ -37,6 +36,9 @@ public:
     }
 
     static void radixsort(vector<int>& nums, bool des = false){
+
+        res.resize(nums.size());
+        
         // 分别处理正数和负数
         vector<int> positive = {};
         vector<int> negative = {};
