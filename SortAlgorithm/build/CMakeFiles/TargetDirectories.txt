@@ -1,7 +1,0 @@
-/Users/ccy/Desktop/Code/Algorithm/SortAlgorithm/build/CMakeFiles/exe_sortalgorithm.dir
-/Users/ccy/Desktop/Code/Algorithm/SortAlgorithm/build/CMakeFiles/run.dir
-/Users/ccy/Desktop/Code/Algorithm/SortAlgorithm/build/CMakeFiles/edit_cache.dir
-/Users/ccy/Desktop/Code/Algorithm/SortAlgorithm/build/CMakeFiles/rebuild_cache.dir
-/Users/ccy/Desktop/Code/Algorithm/SortAlgorithm/bin/CMakeFiles/SortAlgorithm.dir
-/Users/ccy/Desktop/Code/Algorithm/SortAlgorithm/bin/CMakeFiles/edit_cache.dir
-/Users/ccy/Desktop/Code/Algorithm/SortAlgorithm/bin/CMakeFiles/rebuild_cache.dir
