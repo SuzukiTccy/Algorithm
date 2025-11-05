@@ -4,6 +4,14 @@
 using namespace std;
 
 class radixSort{
+/*
+    * 基数排序
+    * 时间复杂度：O(d*(n+r))，其中d为位数，r为基数（0-9），n为元素个数
+    * 空间复杂度：O(n+r)
+    * 算法思想：将整数按位数切割成不同的数字，然后按每个位数分别比较。
+    * 稳定性：稳定
+    * 默认升序
+*/
 public:
     static int counter[10];
     static vector<int> res;
